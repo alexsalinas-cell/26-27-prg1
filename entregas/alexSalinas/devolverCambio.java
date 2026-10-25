@@ -1,47 +1,36 @@
 import java.util.Scanner;
 
-public class devolverCambio {
+class DevolverCambio {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+        Scanner entrada = new Scanner(System.in);
 
-        System.out.println("Cuantos euros debe pagar? (ej: 23,45)");
-        int importe = aCentimos(sc.next());
+        System.out.println("¿Cuántos euros debe pagar?");
+        int importe = entrada.nextInt();
+        System.out.println("¿Con cuántos euros paga?");
+        int pagado = entrada.nextInt();
 
-        System.out.println("Con cuantos euros paga? (ej: 50,00)");
-        int entregado = aCentimos(sc.next());
+        int cambio = pagado - importe;
 
-        if (entregado < importe) {
-            System.out.println("Error: el importe entregado es insuficiente.");
-            sc.close();
-            return;
-        }
+        int billetes100 = cambio / 100;
+        cambio = cambio % 100;
+        int billetes50 = cambio / 50;
+        cambio = cambio % 50;
+        int billetes20 = cambio / 20;
+        cambio = cambio % 20;
+        int billetes10 = cambio / 10;
+        cambio = cambio % 10;
+        int billetes5 = cambio / 5;
+        cambio = cambio % 5;
+        int monedas2 = cambio / 2;
+        cambio = cambio % 2;
+        int monedas1 = cambio;
 
-        int cambio = entregado - importe;
-        System.out.println("Cambio a devolver: " + cambio / 100 + "," + String.format("%02d", cambio % 100) + " euros");
-
-        // Valores en centimos: 100 euros = 10000 centimos
-        int[] valores = {10000, 5000, 2000, 1000, 500, 200, 100, 50, 20, 10, 5, 2, 1};
-
-        for (int i = 0; i < valores.length; i++) {
-            int cantidad = cambio / valores[i];
-            cambio = cambio % valores[i];
-
-            if (cantidad > 0) {
-                if (valores[i] >= 500) {
-                    System.out.println(cantidad + " billete(s) de " + valores[i] / 100 + " euros");
-                } else if (valores[i] >= 100) {
-                    System.out.println(cantidad + " moneda(s) de " + valores[i] / 100 + " euros");
-                } else {
-                    System.out.println(cantidad + " moneda(s) de " + valores[i] + " centimos");
-                }
-            }
-        }
-
-        sc.close();
-    }
-
-    static int aCentimos(String texto) {
-        double valor = Double.parseDouble(texto.replace(',', '.'));
-        return (int) Math.round(valor * 100);
+        System.out.println(billetes100 + " billete(s) de 100 €");
+        System.out.println(billetes50 + " billete(s) de 50 €");
+        System.out.println(billetes20 + " billete(s) de 20 €");
+        System.out.println(billetes10 + " billete(s) de 10 €");
+        System.out.println(billetes5 + " billete(s) de 5 €");
+        System.out.println(monedas2 + " moneda(s) de 2 €");
+        System.out.println(monedas1 + " moneda(s) de 1 €");
     }
 }
